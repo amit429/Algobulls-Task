@@ -75,11 +75,11 @@ The API documentation provides detailed information on the available endpoints a
 Test the APIs using Postman
 
 1. Create a new Postman Collection and add the following requests:
-2. Create a todo item: POST request to /api/todoList/ with the necessary data.
-3. Read one todo item: GET request to /api/todoList/<id>/.
-4. Read all todo items: GET request to /api/todoList/.
-5. Update a todo item: PUT request to /api/todoList/<id>/ with the updated data.
-6. Delete a todo item: DELETE request to /api/todoList/<id>/.
+2. Create a todo item: POST request to /todoList/ with the necessary data.
+3. Read one todo item: GET request to /todoList/<id>/.
+4. Read all todo items: GET request to /todoList/.
+5. Update a todo item: PUT request to /todoList/<id>/ with the updated data.
+6. Delete a todo item: DELETE request to /todoList/<id>/.
 Test each request and ensure they work as expected.
 
 ## Contributing
