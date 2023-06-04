@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ToDoItem , Tag
+from .models import ToDoItem, Tag
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,18 +12,17 @@ class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDoItem
         fields = '__all__'
-
-    # def create(self, validated_data):
-    #     tags_data = validated_data.pop('tags')
-    #     todo = ToDoItem.objects.create(**validated_data)
-    #     #check if tag exists, if not create it and if it does, get it
-    #     for tag_data in tags_data:
-    #         #if the tag exists , without creating duplicate tags add the existing tag to the todo without any tag already exists error
-    #         tag, created = Tag.objects.get_or_create(name=tag_data['name'])
-    #         todo.tags.add(tag)
-    #     return todo
     
     def create(self, validated_data):
+        """
+        Create a new ToDoItem instance with associated tags.
+        
+        Args:
+            validated_data (dict): Validated data for the ToDoItem creation.
+        
+        Returns:
+            todo (ToDoItem): Created ToDoItem instance.
+        """
         tags_data = validated_data.pop('tags')
         todo = ToDoItem.objects.create(**validated_data)
         
@@ -40,6 +39,16 @@ class TodoSerializer(serializers.ModelSerializer):
         return todo
     
     def update(self, instance, validated_data):
+        """
+        Update an existing ToDoItem instance with associated tags.
+        
+        Args:
+            instance (ToDoItem): Existing ToDoItem instance.
+            validated_data (dict): Validated data for the ToDoItem update.
+        
+        Returns:
+            todo (ToDoItem): Updated ToDoItem instance.
+        """
         tags_data = validated_data.pop('tags')
         todo = ToDoItem.objects.get(id=instance.id)
         todo.title = validated_data.get('title', todo.title)
@@ -47,9 +56,9 @@ class TodoSerializer(serializers.ModelSerializer):
         todo.due_date = validated_data.get('due_date', todo.due_date)
         todo.status = validated_data.get('status', todo.status)
         todo.save()
-        #check if tag exists, if not create it and if it does, get it
+        
         for tag_data in tags_data:
-            #if the tag exists , without creating duplicate tags add the existing tag to the todo without any tag already exists error
             tag, created = Tag.objects.get_or_create(name=tag_data['name'])
             todo.tags.add(tag)
+        
         return todo

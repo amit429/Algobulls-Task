@@ -34,7 +34,7 @@ class ToDoItem(models.Model):
     description = models.TextField()   
     due_date = models.DateTimeField(default=one_week_hence)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OPEN')
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag , null=True, blank=True)
 
     def __str__(self):
         return f"{self.title}: due {self.due_date}"
