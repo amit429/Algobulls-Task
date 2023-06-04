@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.db import DEFAULT_DB_ALIAS
+from django.core.exceptions import ValidationError
 
 def one_week_hence():
     return timezone.now() + timezone.timedelta(days=7)
@@ -34,11 +35,19 @@ class ToDoItem(models.Model):
     description = models.TextField()   
     due_date = models.DateTimeField(default=one_week_hence)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OPEN')
-    tags = models.ManyToManyField(Tag , null=True, blank=True)
+    tags = models.ManyToManyField(Tag , blank=True)
 
     def __str__(self):
         return f"{self.title}: due {self.due_date}"
 
     class Meta:
         ordering = ["due_date"]
-# Create your models here.
+    
+    def clean(self):
+        # Check if due date is before the current timestamp
+        if self.due_date < timezone.now():
+            raise ValidationError("Due date cannot be before the current timestamp.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
