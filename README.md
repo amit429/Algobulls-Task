@@ -25,6 +25,9 @@ The To-do List application is designed to help users manage their tasks efficien
 - Read all todo items.
 - Update a todo item with new information.
 - Delete a todo item.
+- Schema Structure contains two main folders , the todo_app folder contains all the Django mains and the todo_app_main folder contains all the implementation of the backend with files like models.py , views.py , serializers.py.
+![image](https://github.com/amit429/Algobulls-Task/assets/68067897/ea15f287-01aa-4435-920f-7633c099c344)
+
 
 ## Requirements
 
