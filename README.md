@@ -1,4 +1,3 @@
-# Algobulls-Internship-Task
 # To-do List Application
 
 This is a web-based To-do List application built with Django.
